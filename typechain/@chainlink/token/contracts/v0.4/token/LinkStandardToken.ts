@@ -12,28 +12,32 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers"
-import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi"
-import type { Listener, Provider } from "@ethersproject/providers"
+} from "ethers";
+import type {
+  FunctionFragment,
+  Result,
+  EventFragment,
+} from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../../../../common"
+} from "../../../../../common";
 
 export interface LinkStandardTokenInterface extends utils.Interface {
   functions: {
-    "approve(address,uint256)": FunctionFragment
-    "totalSupply()": FunctionFragment
-    "transferFrom(address,address,uint256)": FunctionFragment
-    "decreaseApproval(address,uint256)": FunctionFragment
-    "balanceOf(address)": FunctionFragment
-    "transfer(address,uint256)": FunctionFragment
-    "increaseApproval(address,uint256)": FunctionFragment
-    "allowance(address,address)": FunctionFragment
-  }
+    "approve(address,uint256)": FunctionFragment;
+    "totalSupply()": FunctionFragment;
+    "transferFrom(address,address,uint256)": FunctionFragment;
+    "decreaseApproval(address,uint256)": FunctionFragment;
+    "balanceOf(address)": FunctionFragment;
+    "transfer(address,uint256)": FunctionFragment;
+    "increaseApproval(address,uint256)": FunctionFragment;
+    "allowance(address,address)": FunctionFragment;
+  };
 
   getFunction(
     nameOrSignatureOrTopic:
@@ -45,335 +49,374 @@ export interface LinkStandardTokenInterface extends utils.Interface {
       | "transfer"
       | "increaseApproval"
       | "allowance"
-  ): FunctionFragment
+  ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "approve",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string
-  encodeFunctionData(functionFragment: "totalSupply", values?: undefined): string
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalSupply",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
   encodeFunctionData(
     functionFragment: "decreaseApproval",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string
-  encodeFunctionData(functionFragment: "balanceOf", values: [PromiseOrValue<string>]): string
+  ): string;
+  encodeFunctionData(
+    functionFragment: "balanceOf",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "transfer",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string
+  ): string;
   encodeFunctionData(
     functionFragment: "increaseApproval",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string
+  ): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
-  ): string
+  ): string;
 
-  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "totalSupply", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "transferFrom", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "decreaseApproval", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "increaseApproval", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "totalSupply",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferFrom",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseApproval",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseApproval",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
 
   events: {
-    "Approval(address,address,uint256)": EventFragment
-    "Transfer(address,address,uint256)": EventFragment
-  }
+    "Approval(address,address,uint256)": EventFragment;
+    "Transfer(address,address,uint256)": EventFragment;
+  };
 
-  getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment
-  getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment
+  getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
 export interface ApprovalEventObject {
-  owner: string
-  spender: string
-  value: BigNumber
+  owner: string;
+  spender: string;
+  value: BigNumber;
 }
-export type ApprovalEvent = TypedEvent<[string, string, BigNumber], ApprovalEventObject>
+export type ApprovalEvent = TypedEvent<
+  [string, string, BigNumber],
+  ApprovalEventObject
+>;
 
-export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>
+export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
 
 export interface TransferEventObject {
-  from: string
-  to: string
-  value: BigNumber
+  from: string;
+  to: string;
+  value: BigNumber;
 }
-export type TransferEvent = TypedEvent<[string, string, BigNumber], TransferEventObject>
+export type TransferEvent = TypedEvent<
+  [string, string, BigNumber],
+  TransferEventObject
+>;
 
-export type TransferEventFilter = TypedEventFilter<TransferEvent>
+export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
 export interface LinkStandardToken extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this
-  attach(addressOrName: string): this
-  deployed(): Promise<this>
+  connect(signerOrProvider: Signer | Provider | string): this;
+  attach(addressOrName: string): this;
+  deployed(): Promise<this>;
 
-  interface: LinkStandardTokenInterface
+  interface: LinkStandardTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>
+  ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
     eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>
-  listeners(eventName?: string): Array<Listener>
-  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this
-  removeAllListeners(eventName?: string): this
-  off: OnEvent<this>
-  on: OnEvent<this>
-  once: OnEvent<this>
-  removeListener: OnEvent<this>
+  ): Array<TypedListener<TEvent>>;
+  listeners(eventName?: string): Array<Listener>;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
+  removeAllListeners(eventName?: string): this;
+  off: OnEvent<this>;
+  on: OnEvent<this>;
+  once: OnEvent<this>;
+  removeListener: OnEvent<this>;
 
   functions: {
     approve(
       _spender: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
+    ): Promise<ContractTransaction>;
 
-    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transferFrom(
       _from: PromiseOrValue<string>,
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
+    ): Promise<ContractTransaction>;
 
     decreaseApproval(
       _spender: PromiseOrValue<string>,
       _subtractedValue: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
+    ): Promise<ContractTransaction>;
 
     balanceOf(
       _owner: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { balance: BigNumber }>
+    ): Promise<[BigNumber] & { balance: BigNumber }>;
 
     transfer(
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
+    ): Promise<ContractTransaction>;
 
     increaseApproval(
       _spender: PromiseOrValue<string>,
       _addedValue: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>
+    ): Promise<ContractTransaction>;
 
     allowance(
       _owner: PromiseOrValue<string>,
       _spender: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { remaining: BigNumber }>
-  }
+    ): Promise<[BigNumber] & { remaining: BigNumber }>;
+  };
 
   approve(
     _spender: PromiseOrValue<string>,
     _value: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
-  totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transferFrom(
     _from: PromiseOrValue<string>,
     _to: PromiseOrValue<string>,
     _value: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   decreaseApproval(
     _spender: PromiseOrValue<string>,
     _subtractedValue: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
-  balanceOf(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+  balanceOf(
+    _owner: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   transfer(
     _to: PromiseOrValue<string>,
     _value: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   increaseApproval(
     _spender: PromiseOrValue<string>,
     _addedValue: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   allowance(
     _owner: PromiseOrValue<string>,
     _spender: PromiseOrValue<string>,
     overrides?: CallOverrides
-  ): Promise<BigNumber>
+  ): Promise<BigNumber>;
 
   callStatic: {
     approve(
       _spender: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<boolean>;
 
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferFrom(
       _from: PromiseOrValue<string>,
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<boolean>;
 
     decreaseApproval(
       _spender: PromiseOrValue<string>,
       _subtractedValue: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<boolean>;
 
-    balanceOf(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+    balanceOf(
+      _owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     transfer(
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<boolean>;
 
     increaseApproval(
       _spender: PromiseOrValue<string>,
       _addedValue: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>
+    ): Promise<boolean>;
 
     allowance(
       _owner: PromiseOrValue<string>,
       _spender: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>
-  }
+    ): Promise<BigNumber>;
+  };
 
   filters: {
     "Approval(address,address,uint256)"(
       owner?: PromiseOrValue<string> | null,
       spender?: PromiseOrValue<string> | null,
       value?: null
-    ): ApprovalEventFilter
+    ): ApprovalEventFilter;
     Approval(
       owner?: PromiseOrValue<string> | null,
       spender?: PromiseOrValue<string> | null,
       value?: null
-    ): ApprovalEventFilter
+    ): ApprovalEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: PromiseOrValue<string> | null,
       to?: PromiseOrValue<string> | null,
       value?: null
-    ): TransferEventFilter
+    ): TransferEventFilter;
     Transfer(
       from?: PromiseOrValue<string> | null,
       to?: PromiseOrValue<string> | null,
       value?: null
-    ): TransferEventFilter
-  }
+    ): TransferEventFilter;
+  };
 
   estimateGas: {
     approve(
       _spender: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
+    ): Promise<BigNumber>;
 
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferFrom(
       _from: PromiseOrValue<string>,
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
+    ): Promise<BigNumber>;
 
     decreaseApproval(
       _spender: PromiseOrValue<string>,
       _subtractedValue: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
+    ): Promise<BigNumber>;
 
-    balanceOf(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
+    balanceOf(
+      _owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     transfer(
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
+    ): Promise<BigNumber>;
 
     increaseApproval(
       _spender: PromiseOrValue<string>,
       _addedValue: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>
+    ): Promise<BigNumber>;
 
     allowance(
       _owner: PromiseOrValue<string>,
       _spender: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>
-  }
+    ): Promise<BigNumber>;
+  };
 
   populateTransaction: {
     approve(
       _spender: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferFrom(
       _from: PromiseOrValue<string>,
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
     decreaseApproval(
       _spender: PromiseOrValue<string>,
       _subtractedValue: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
     balanceOf(
       _owner: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
     transfer(
       _to: PromiseOrValue<string>,
       _value: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
     increaseApproval(
       _spender: PromiseOrValue<string>,
       _addedValue: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
     allowance(
       _owner: PromiseOrValue<string>,
       _spender: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
-  }
+    ): Promise<PopulatedTransaction>;
+  };
 }

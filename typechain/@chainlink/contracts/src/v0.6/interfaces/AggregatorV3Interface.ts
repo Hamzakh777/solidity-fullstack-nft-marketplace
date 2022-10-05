@@ -10,25 +10,25 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers"
-import type { FunctionFragment, Result } from "@ethersproject/abi"
-import type { Listener, Provider } from "@ethersproject/providers"
+} from "ethers";
+import type { FunctionFragment, Result } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../../../../common"
+} from "../../../../../common";
 
 export interface AggregatorV3InterfaceInterface extends utils.Interface {
   functions: {
-    "decimals()": FunctionFragment
-    "description()": FunctionFragment
-    "getRoundData(uint80)": FunctionFragment
-    "latestRoundData()": FunctionFragment
-    "version()": FunctionFragment
-  }
+    "decimals()": FunctionFragment;
+    "description()": FunctionFragment;
+    "getRoundData(uint80)": FunctionFragment;
+    "latestRoundData()": FunctionFragment;
+    "version()": FunctionFragment;
+  };
 
   getFunction(
     nameOrSignatureOrTopic:
@@ -37,170 +37,193 @@ export interface AggregatorV3InterfaceInterface extends utils.Interface {
       | "getRoundData"
       | "latestRoundData"
       | "version"
-  ): FunctionFragment
+  ): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string
-  encodeFunctionData(functionFragment: "description", values?: undefined): string
+  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "description",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getRoundData",
     values: [PromiseOrValue<BigNumberish>]
-  ): string
-  encodeFunctionData(functionFragment: "latestRoundData", values?: undefined): string
-  encodeFunctionData(functionFragment: "version", values?: undefined): string
+  ): string;
+  encodeFunctionData(
+    functionFragment: "latestRoundData",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "version", values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "description", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "getRoundData", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "latestRoundData", data: BytesLike): Result
-  decodeFunctionResult(functionFragment: "version", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "description",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoundData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "latestRoundData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
 
-  events: {}
+  events: {};
 }
 
 export interface AggregatorV3Interface extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this
-  attach(addressOrName: string): this
-  deployed(): Promise<this>
+  connect(signerOrProvider: Signer | Provider | string): this;
+  attach(addressOrName: string): this;
+  deployed(): Promise<this>;
 
-  interface: AggregatorV3InterfaceInterface
+  interface: AggregatorV3InterfaceInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>
+  ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
     eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>
-  listeners(eventName?: string): Array<Listener>
-  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this
-  removeAllListeners(eventName?: string): this
-  off: OnEvent<this>
-  on: OnEvent<this>
-  once: OnEvent<this>
-  removeListener: OnEvent<this>
+  ): Array<TypedListener<TEvent>>;
+  listeners(eventName?: string): Array<Listener>;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
+  removeAllListeners(eventName?: string): this;
+  off: OnEvent<this>;
+  on: OnEvent<this>;
+  once: OnEvent<this>;
+  removeListener: OnEvent<this>;
 
   functions: {
-    decimals(overrides?: CallOverrides): Promise<[number]>
+    decimals(overrides?: CallOverrides): Promise<[number]>;
 
-    description(overrides?: CallOverrides): Promise<[string]>
+    description(overrides?: CallOverrides): Promise<[string]>;
 
     getRoundData(
       _roundId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        roundId: BigNumber
-        answer: BigNumber
-        startedAt: BigNumber
-        updatedAt: BigNumber
-        answeredInRound: BigNumber
+        roundId: BigNumber;
+        answer: BigNumber;
+        startedAt: BigNumber;
+        updatedAt: BigNumber;
+        answeredInRound: BigNumber;
       }
-    >
+    >;
 
-    latestRoundData(overrides?: CallOverrides): Promise<
+    latestRoundData(
+      overrides?: CallOverrides
+    ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        roundId: BigNumber
-        answer: BigNumber
-        startedAt: BigNumber
-        updatedAt: BigNumber
-        answeredInRound: BigNumber
+        roundId: BigNumber;
+        answer: BigNumber;
+        startedAt: BigNumber;
+        updatedAt: BigNumber;
+        answeredInRound: BigNumber;
       }
-    >
+    >;
 
-    version(overrides?: CallOverrides): Promise<[BigNumber]>
-  }
+    version(overrides?: CallOverrides): Promise<[BigNumber]>;
+  };
 
-  decimals(overrides?: CallOverrides): Promise<number>
+  decimals(overrides?: CallOverrides): Promise<number>;
 
-  description(overrides?: CallOverrides): Promise<string>
+  description(overrides?: CallOverrides): Promise<string>;
 
   getRoundData(
     _roundId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      roundId: BigNumber
-      answer: BigNumber
-      startedAt: BigNumber
-      updatedAt: BigNumber
-      answeredInRound: BigNumber
+      roundId: BigNumber;
+      answer: BigNumber;
+      startedAt: BigNumber;
+      updatedAt: BigNumber;
+      answeredInRound: BigNumber;
     }
-  >
+  >;
 
-  latestRoundData(overrides?: CallOverrides): Promise<
+  latestRoundData(
+    overrides?: CallOverrides
+  ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      roundId: BigNumber
-      answer: BigNumber
-      startedAt: BigNumber
-      updatedAt: BigNumber
-      answeredInRound: BigNumber
+      roundId: BigNumber;
+      answer: BigNumber;
+      startedAt: BigNumber;
+      updatedAt: BigNumber;
+      answeredInRound: BigNumber;
     }
-  >
+  >;
 
-  version(overrides?: CallOverrides): Promise<BigNumber>
+  version(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    decimals(overrides?: CallOverrides): Promise<number>
+    decimals(overrides?: CallOverrides): Promise<number>;
 
-    description(overrides?: CallOverrides): Promise<string>
+    description(overrides?: CallOverrides): Promise<string>;
 
     getRoundData(
       _roundId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        roundId: BigNumber
-        answer: BigNumber
-        startedAt: BigNumber
-        updatedAt: BigNumber
-        answeredInRound: BigNumber
+        roundId: BigNumber;
+        answer: BigNumber;
+        startedAt: BigNumber;
+        updatedAt: BigNumber;
+        answeredInRound: BigNumber;
       }
-    >
+    >;
 
-    latestRoundData(overrides?: CallOverrides): Promise<
+    latestRoundData(
+      overrides?: CallOverrides
+    ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        roundId: BigNumber
-        answer: BigNumber
-        startedAt: BigNumber
-        updatedAt: BigNumber
-        answeredInRound: BigNumber
+        roundId: BigNumber;
+        answer: BigNumber;
+        startedAt: BigNumber;
+        updatedAt: BigNumber;
+        answeredInRound: BigNumber;
       }
-    >
+    >;
 
-    version(overrides?: CallOverrides): Promise<BigNumber>
-  }
+    version(overrides?: CallOverrides): Promise<BigNumber>;
+  };
 
-  filters: {}
+  filters: {};
 
   estimateGas: {
-    decimals(overrides?: CallOverrides): Promise<BigNumber>
+    decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
-    description(overrides?: CallOverrides): Promise<BigNumber>
+    description(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoundData(
       _roundId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>
+    ): Promise<BigNumber>;
 
-    latestRoundData(overrides?: CallOverrides): Promise<BigNumber>
+    latestRoundData(overrides?: CallOverrides): Promise<BigNumber>;
 
-    version(overrides?: CallOverrides): Promise<BigNumber>
-  }
+    version(overrides?: CallOverrides): Promise<BigNumber>;
+  };
 
   populateTransaction: {
-    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    description(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    description(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getRoundData(
       _roundId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>
+    ): Promise<PopulatedTransaction>;
 
-    latestRoundData(overrides?: CallOverrides): Promise<PopulatedTransaction>
+    latestRoundData(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    version(overrides?: CallOverrides): Promise<PopulatedTransaction>
-  }
+    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+  };
 }

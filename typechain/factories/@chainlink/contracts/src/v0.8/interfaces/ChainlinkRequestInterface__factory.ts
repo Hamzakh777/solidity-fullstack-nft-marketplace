@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers"
-import type { Provider } from "@ethersproject/providers"
+import { Contract, Signer, utils } from "ethers";
+import type { Provider } from "@ethersproject/providers";
 import type {
   ChainlinkRequestInterface,
   ChainlinkRequestInterfaceInterface,
-} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/ChainlinkRequestInterface"
+} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/ChainlinkRequestInterface";
 
 const _abi = [
   {
@@ -86,14 +86,21 @@ const _abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-]
+];
 
 export class ChainlinkRequestInterface__factory {
-  static readonly abi = _abi
+  static readonly abi = _abi;
   static createInterface(): ChainlinkRequestInterfaceInterface {
-    return new utils.Interface(_abi) as ChainlinkRequestInterfaceInterface
+    return new utils.Interface(_abi) as ChainlinkRequestInterfaceInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): ChainlinkRequestInterface {
-    return new Contract(address, _abi, signerOrProvider) as ChainlinkRequestInterface
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): ChainlinkRequestInterface {
+    return new Contract(
+      address,
+      _abi,
+      signerOrProvider
+    ) as ChainlinkRequestInterface;
   }
 }

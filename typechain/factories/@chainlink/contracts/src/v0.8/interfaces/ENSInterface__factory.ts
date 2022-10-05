@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers"
-import type { Provider } from "@ethersproject/providers"
+import { Contract, Signer, utils } from "ethers";
+import type { Provider } from "@ethersproject/providers";
 import type {
   ENSInterface,
   ENSInterfaceInterface,
-} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/ENSInterface"
+} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/ENSInterface";
 
 const _abi = [
   {
@@ -226,14 +226,17 @@ const _abi = [
     stateMutability: "view",
     type: "function",
   },
-]
+];
 
 export class ENSInterface__factory {
-  static readonly abi = _abi
+  static readonly abi = _abi;
   static createInterface(): ENSInterfaceInterface {
-    return new utils.Interface(_abi) as ENSInterfaceInterface
+    return new utils.Interface(_abi) as ENSInterfaceInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): ENSInterface {
-    return new Contract(address, _abi, signerOrProvider) as ENSInterface
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): ENSInterface {
+    return new Contract(address, _abi, signerOrProvider) as ENSInterface;
   }
 }

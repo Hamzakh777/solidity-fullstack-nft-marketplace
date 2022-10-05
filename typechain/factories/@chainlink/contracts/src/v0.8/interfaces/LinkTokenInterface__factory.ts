@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers"
-import type { Provider } from "@ethersproject/providers"
+import { Contract, Signer, utils } from "ethers";
+import type { Provider } from "@ethersproject/providers";
 import type {
   LinkTokenInterface,
   LinkTokenInterfaceInterface,
-} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface"
+} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface";
 
 const _abi = [
   {
@@ -253,14 +253,17 @@ const _abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-]
+];
 
 export class LinkTokenInterface__factory {
-  static readonly abi = _abi
+  static readonly abi = _abi;
   static createInterface(): LinkTokenInterfaceInterface {
-    return new utils.Interface(_abi) as LinkTokenInterfaceInterface
+    return new utils.Interface(_abi) as LinkTokenInterfaceInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): LinkTokenInterface {
-    return new Contract(address, _abi, signerOrProvider) as LinkTokenInterface
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): LinkTokenInterface {
+    return new Contract(address, _abi, signerOrProvider) as LinkTokenInterface;
   }
 }
