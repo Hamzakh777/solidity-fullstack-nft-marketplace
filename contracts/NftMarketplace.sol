@@ -5,8 +5,11 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 error NftMarketplace__PriceMustBeAboveZero();
 error NftMarketplace__NotApprovedForMarketplace();
-error NftMarketplace__AlreadyListed(address nftAddress, uint256 tokenid);
+error NftMarketplace__AlreadyListed(address nftAddress, uint256 tokenId);
 error NftMarketplace__NotOwner();
+error NftMarketplace__OwnerCannotBuyHisOwnNft();
+error NftMarketplace__NftNotListed(address nftAddress, uint256 tokenId);
+error NftMarketplace__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
 
 contract NftMarketplace {
   struct Listing {
@@ -23,15 +26,21 @@ contract NftMarketplace {
 
   // NFT contract address => nft token id => listing
   mapping(address => mapping(uint256 => Listing)) s_listings;
+  // Seller Address => Amount earned
+  mapping(address => uint256) s_proceed;
 
   ///////////////
   // Modifiers //
   ///////////////
-  modifier notListed(
-    address nftAddress,
-    uint256 tokenId,
-    address owner
-  ) {
+  modifier isListed(address nftAddres, uint256 tokenId) {
+    Listing memory listing = s_listings[nftAddres][tokenId];
+    if (listing.price <= 0) {
+      revert NftMarketplace__NftNotListed(nftAddres, tokenId);
+    }
+    _;
+  }
+
+  modifier isNotListed(address nftAddress, uint256 tokenId) {
     Listing memory listing = s_listings[nftAddress][tokenId];
     if (listing.price > 0) {
       revert NftMarketplace__AlreadyListed(nftAddress, tokenId);
@@ -48,6 +57,19 @@ contract NftMarketplace {
     address owner = nft.ownerOf(tokenId);
     if (owner != spender) {
       revert NftMarketplace__NotOwner();
+    }
+    _;
+  }
+
+  modifier isNotOwner(
+    address nftAddress,
+    uint256 tokenId,
+    address spender
+  ) {
+    IERC721 nft = IERC721(nftAddress);
+    address owner = nft.ownerOf(tokenId);
+    if (owner != spender) {
+      revert NftMarketplace__OwnerCannotBuyHisOwnNft();
     }
     _;
   }
@@ -69,7 +91,13 @@ contract NftMarketplace {
     address nftAddress,
     uint256 tokenId,
     uint256 price
-  ) external notListed(nftAddress, tokenId, msg.sender) isOwner(nftAddress, tokenId, msg.sender) {
+  )
+    external
+    // Challenge: Have this contract accept payment in a subset of token as well
+    // Hint: use Chainlink Price Feeds to convert the price of the token between each other
+    isNotListed(nftAddress, tokenId)
+    isOwner(nftAddress, tokenId, msg.sender)
+  {
     if (price <= 0) {
       revert NftMarketplace__PriceMustBeAboveZero();
     }
@@ -79,5 +107,26 @@ contract NftMarketplace {
     }
     s_listings[nftAddress][tokenId] = Listing(price, msg.sender);
     emit ItemList(msg.sender, nftAddress, tokenId, price);
+  }
+
+  /**
+   * @notice This functions lets the user buy an NFT
+   */
+  function buyItem(address nftAddress, uint256 tokenId)
+    external
+    payable
+    isListed(nftAddress, tokenId)
+    isNotOwner(nftAddress, tokenId, msg.sender)
+  {
+    Listing memory listingItem = s_listings[nftAddress][tokenId];
+    if (msg.value <= listingItem.price) {
+      revert NftMarketplace__PriceNotMet(nftAddress, tokenId, listingItem.price);
+    }
+    // pull over push - solidity best practice = instead of sending 
+    // the money directly, we want them to withdraw the money
+    s_proceed[listingItem.seller] += msg.value;
+    delete (s_listings[nftAddress][tokenId]);
+    IERC721 nft = IERC721(nftAddress);
+    nft.safeTransferFrom(listingItem.seller, msg.sender, tokenId);
   }
 }
