@@ -13,33 +13,33 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import type { FunctionFragment, Result } from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
+} from "ethers"
+import type { FunctionFragment, Result } from "@ethersproject/abi"
+import type { Listener, Provider } from "@ethersproject/providers"
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../../../../common";
+} from "../../../../../common"
 
 export interface OperatorInterfaceInterface extends utils.Interface {
   functions: {
-    "cancelOracleRequest(bytes32,uint256,bytes4,uint256)": FunctionFragment;
-    "distributeFunds(address[],uint256[])": FunctionFragment;
-    "fulfillOracleRequest(bytes32,uint256,address,bytes4,uint256,bytes32)": FunctionFragment;
-    "fulfillOracleRequest2(bytes32,uint256,address,bytes4,uint256,bytes)": FunctionFragment;
-    "getAuthorizedSenders()": FunctionFragment;
-    "getForwarder()": FunctionFragment;
-    "isAuthorizedSender(address)": FunctionFragment;
-    "operatorRequest(address,uint256,bytes32,bytes4,uint256,uint256,bytes)": FunctionFragment;
-    "oracleRequest(address,uint256,bytes32,address,bytes4,uint256,uint256,bytes)": FunctionFragment;
-    "ownerTransferAndCall(address,uint256,bytes)": FunctionFragment;
-    "setAuthorizedSenders(address[])": FunctionFragment;
-    "withdraw(address,uint256)": FunctionFragment;
-    "withdrawable()": FunctionFragment;
-  };
+    "cancelOracleRequest(bytes32,uint256,bytes4,uint256)": FunctionFragment
+    "distributeFunds(address[],uint256[])": FunctionFragment
+    "fulfillOracleRequest(bytes32,uint256,address,bytes4,uint256,bytes32)": FunctionFragment
+    "fulfillOracleRequest2(bytes32,uint256,address,bytes4,uint256,bytes)": FunctionFragment
+    "getAuthorizedSenders()": FunctionFragment
+    "getForwarder()": FunctionFragment
+    "isAuthorizedSender(address)": FunctionFragment
+    "operatorRequest(address,uint256,bytes32,bytes4,uint256,uint256,bytes)": FunctionFragment
+    "oracleRequest(address,uint256,bytes32,address,bytes4,uint256,uint256,bytes)": FunctionFragment
+    "ownerTransferAndCall(address,uint256,bytes)": FunctionFragment
+    "setAuthorizedSenders(address[])": FunctionFragment
+    "withdraw(address,uint256)": FunctionFragment
+    "withdrawable()": FunctionFragment
+  }
 
   getFunction(
     nameOrSignatureOrTopic:
@@ -56,7 +56,7 @@ export interface OperatorInterfaceInterface extends utils.Interface {
       | "setAuthorizedSenders"
       | "withdraw"
       | "withdrawable"
-  ): FunctionFragment;
+  ): FunctionFragment
 
   encodeFunctionData(
     functionFragment: "cancelOracleRequest",
@@ -66,11 +66,11 @@ export interface OperatorInterfaceInterface extends utils.Interface {
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BigNumberish>
     ]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "distributeFunds",
     values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "fulfillOracleRequest",
     values: [
@@ -81,7 +81,7 @@ export interface OperatorInterfaceInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>
     ]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "fulfillOracleRequest2",
     values: [
@@ -92,19 +92,13 @@ export interface OperatorInterfaceInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAuthorizedSenders",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getForwarder",
-    values?: undefined
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: "getAuthorizedSenders", values?: undefined): string
+  encodeFunctionData(functionFragment: "getForwarder", values?: undefined): string
   encodeFunctionData(
     functionFragment: "isAuthorizedSender",
     values: [PromiseOrValue<string>]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "operatorRequest",
     values: [
@@ -116,7 +110,7 @@ export interface OperatorInterfaceInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>
     ]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "oracleRequest",
     values: [
@@ -129,106 +123,61 @@ export interface OperatorInterfaceInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>
     ]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "ownerTransferAndCall",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
+  ): string
   encodeFunctionData(
     functionFragment: "setAuthorizedSenders",
     values: [PromiseOrValue<string>[]]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "withdraw",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawable",
-    values?: undefined
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: "withdrawable", values?: undefined): string
 
-  decodeFunctionResult(
-    functionFragment: "cancelOracleRequest",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "distributeFunds",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "fulfillOracleRequest",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "fulfillOracleRequest2",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAuthorizedSenders",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getForwarder",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isAuthorizedSender",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "operatorRequest",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "oracleRequest",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "ownerTransferAndCall",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setAuthorizedSenders",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawable",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "cancelOracleRequest", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "distributeFunds", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "fulfillOracleRequest", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "fulfillOracleRequest2", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "getAuthorizedSenders", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "getForwarder", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "isAuthorizedSender", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "operatorRequest", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "oracleRequest", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "ownerTransferAndCall", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "setAuthorizedSenders", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "withdrawable", data: BytesLike): Result
 
-  events: {};
+  events: {}
 }
 
 export interface OperatorInterface extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
-  interface: OperatorInterfaceInterface;
+  interface: OperatorInterfaceInterface
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>;
+  ): Promise<Array<TEvent>>
 
   listeners<TEvent extends TypedEvent>(
     eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
-  listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
-  removeAllListeners(eventName?: string): this;
-  off: OnEvent<this>;
-  on: OnEvent<this>;
-  once: OnEvent<this>;
-  removeListener: OnEvent<this>;
+  ): Array<TypedListener<TEvent>>
+  listeners(eventName?: string): Array<Listener>
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this
+  removeAllListeners(eventName?: string): this
+  off: OnEvent<this>
+  on: OnEvent<this>
+  once: OnEvent<this>
+  removeListener: OnEvent<this>
 
   functions: {
     cancelOracleRequest(
@@ -237,13 +186,13 @@ export interface OperatorInterface extends BaseContract {
       callbackFunctionId: PromiseOrValue<BytesLike>,
       expiration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     distributeFunds(
       receivers: PromiseOrValue<string>[],
       amounts: PromiseOrValue<BigNumberish>[],
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     fulfillOracleRequest(
       requestId: PromiseOrValue<BytesLike>,
@@ -253,7 +202,7 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     fulfillOracleRequest2(
       requestId: PromiseOrValue<BytesLike>,
@@ -263,20 +212,17 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     getAuthorizedSenders(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     getForwarder(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    isAuthorizedSender(
-      node: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isAuthorizedSender(node: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[boolean]>
 
     operatorRequest(
       sender: PromiseOrValue<string>,
@@ -287,7 +233,7 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     oracleRequest(
       sender: PromiseOrValue<string>,
@@ -299,28 +245,28 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     ownerTransferAndCall(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setAuthorizedSenders(
       senders: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     withdraw(
       recipient: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    withdrawable(overrides?: CallOverrides): Promise<[BigNumber]>;
-  };
+    withdrawable(overrides?: CallOverrides): Promise<[BigNumber]>
+  }
 
   cancelOracleRequest(
     requestId: PromiseOrValue<BytesLike>,
@@ -328,13 +274,13 @@ export interface OperatorInterface extends BaseContract {
     callbackFunctionId: PromiseOrValue<BytesLike>,
     expiration: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   distributeFunds(
     receivers: PromiseOrValue<string>[],
     amounts: PromiseOrValue<BigNumberish>[],
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   fulfillOracleRequest(
     requestId: PromiseOrValue<BytesLike>,
@@ -344,7 +290,7 @@ export interface OperatorInterface extends BaseContract {
     expiration: PromiseOrValue<BigNumberish>,
     data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   fulfillOracleRequest2(
     requestId: PromiseOrValue<BytesLike>,
@@ -354,20 +300,17 @@ export interface OperatorInterface extends BaseContract {
     expiration: PromiseOrValue<BigNumberish>,
     data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   getAuthorizedSenders(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   getForwarder(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  isAuthorizedSender(
-    node: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isAuthorizedSender(node: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>
 
   operatorRequest(
     sender: PromiseOrValue<string>,
@@ -378,7 +321,7 @@ export interface OperatorInterface extends BaseContract {
     dataVersion: PromiseOrValue<BigNumberish>,
     data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   oracleRequest(
     sender: PromiseOrValue<string>,
@@ -390,27 +333,27 @@ export interface OperatorInterface extends BaseContract {
     dataVersion: PromiseOrValue<BigNumberish>,
     data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   ownerTransferAndCall(
     to: PromiseOrValue<string>,
     value: PromiseOrValue<BigNumberish>,
     data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setAuthorizedSenders(
     senders: PromiseOrValue<string>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   withdraw(
     recipient: PromiseOrValue<string>,
     amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  withdrawable(overrides?: CallOverrides): Promise<BigNumber>;
+  withdrawable(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
     cancelOracleRequest(
@@ -419,13 +362,13 @@ export interface OperatorInterface extends BaseContract {
       callbackFunctionId: PromiseOrValue<BytesLike>,
       expiration: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     distributeFunds(
       receivers: PromiseOrValue<string>[],
       amounts: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     fulfillOracleRequest(
       requestId: PromiseOrValue<BytesLike>,
@@ -435,7 +378,7 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<boolean>
 
     fulfillOracleRequest2(
       requestId: PromiseOrValue<BytesLike>,
@@ -445,16 +388,13 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<boolean>
 
-    getAuthorizedSenders(overrides?: CallOverrides): Promise<string[]>;
+    getAuthorizedSenders(overrides?: CallOverrides): Promise<string[]>
 
-    getForwarder(overrides?: CallOverrides): Promise<string>;
+    getForwarder(overrides?: CallOverrides): Promise<string>
 
-    isAuthorizedSender(
-      node: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isAuthorizedSender(node: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>
 
     operatorRequest(
       sender: PromiseOrValue<string>,
@@ -465,7 +405,7 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     oracleRequest(
       sender: PromiseOrValue<string>,
@@ -477,30 +417,30 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     ownerTransferAndCall(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<boolean>
 
     setAuthorizedSenders(
       senders: PromiseOrValue<string>[],
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     withdraw(
       recipient: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    withdrawable(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    withdrawable(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
-  filters: {};
+  filters: {}
 
   estimateGas: {
     cancelOracleRequest(
@@ -509,13 +449,13 @@ export interface OperatorInterface extends BaseContract {
       callbackFunctionId: PromiseOrValue<BytesLike>,
       expiration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     distributeFunds(
       receivers: PromiseOrValue<string>[],
       amounts: PromiseOrValue<BigNumberish>[],
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     fulfillOracleRequest(
       requestId: PromiseOrValue<BytesLike>,
@@ -525,7 +465,7 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     fulfillOracleRequest2(
       requestId: PromiseOrValue<BytesLike>,
@@ -535,20 +475,15 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     getAuthorizedSenders(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getForwarder(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    getForwarder(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
 
-    isAuthorizedSender(
-      node: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isAuthorizedSender(node: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>
 
     operatorRequest(
       sender: PromiseOrValue<string>,
@@ -559,7 +494,7 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     oracleRequest(
       sender: PromiseOrValue<string>,
@@ -571,28 +506,28 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     ownerTransferAndCall(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setAuthorizedSenders(
       senders: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     withdraw(
       recipient: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    withdrawable(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    withdrawable(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
     cancelOracleRequest(
@@ -601,13 +536,13 @@ export interface OperatorInterface extends BaseContract {
       callbackFunctionId: PromiseOrValue<BytesLike>,
       expiration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     distributeFunds(
       receivers: PromiseOrValue<string>[],
       amounts: PromiseOrValue<BigNumberish>[],
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     fulfillOracleRequest(
       requestId: PromiseOrValue<BytesLike>,
@@ -617,7 +552,7 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     fulfillOracleRequest2(
       requestId: PromiseOrValue<BytesLike>,
@@ -627,20 +562,20 @@ export interface OperatorInterface extends BaseContract {
       expiration: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     getAuthorizedSenders(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     getForwarder(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     isAuthorizedSender(
       node: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     operatorRequest(
       sender: PromiseOrValue<string>,
@@ -651,7 +586,7 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     oracleRequest(
       sender: PromiseOrValue<string>,
@@ -663,26 +598,26 @@ export interface OperatorInterface extends BaseContract {
       dataVersion: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     ownerTransferAndCall(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setAuthorizedSenders(
       senders: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     withdraw(
       recipient: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    withdrawable(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-  };
+    withdrawable(overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

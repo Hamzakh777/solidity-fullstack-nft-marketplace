@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from "ethers"
+import type { Provider } from "@ethersproject/providers"
 import type {
   AggregatorV2V3Interface,
   AggregatorV2V3InterfaceInterface,
-} from "../../../../../../@chainlink/contracts/src/v0.6/interfaces/AggregatorV2V3Interface";
+} from "../../../../../../@chainlink/contracts/src/v0.6/interfaces/AggregatorV2V3Interface"
 
 const _abi = [
   {
@@ -248,21 +248,14 @@ const _abi = [
     stateMutability: "view",
     type: "function",
   },
-];
+]
 
 export class AggregatorV2V3Interface__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): AggregatorV2V3InterfaceInterface {
-    return new utils.Interface(_abi) as AggregatorV2V3InterfaceInterface;
+    return new utils.Interface(_abi) as AggregatorV2V3InterfaceInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): AggregatorV2V3Interface {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as AggregatorV2V3Interface;
+  static connect(address: string, signerOrProvider: Signer | Provider): AggregatorV2V3Interface {
+    return new Contract(address, _abi, signerOrProvider) as AggregatorV2V3Interface
   }
 }

@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from "ethers"
+import type { Provider } from "@ethersproject/providers"
 import type {
   LinkERC20,
   LinkERC20Interface,
-} from "../../../../../../@chainlink/token/contracts/v0.4/token/LinkERC20";
+} from "../../../../../../@chainlink/token/contracts/v0.4/token/LinkERC20"
 
 const _abi = [
   {
@@ -183,17 +183,14 @@ const _abi = [
     name: "Transfer",
     type: "event",
   },
-];
+]
 
 export class LinkERC20__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): LinkERC20Interface {
-    return new utils.Interface(_abi) as LinkERC20Interface;
+    return new utils.Interface(_abi) as LinkERC20Interface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): LinkERC20 {
-    return new Contract(address, _abi, signerOrProvider) as LinkERC20;
+  static connect(address: string, signerOrProvider: Signer | Provider): LinkERC20 {
+    return new Contract(address, _abi, signerOrProvider) as LinkERC20
   }
 }

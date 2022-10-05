@@ -12,251 +12,204 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
+} from "ethers"
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi"
+import type { Listener, Provider } from "@ethersproject/providers"
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../common";
+} from "../common"
 
 export interface APIConsumerInterface extends utils.Interface {
   functions: {
-    "fulfill(bytes32,uint256)": FunctionFragment;
-    "requestVolumeData()": FunctionFragment;
-    "volume()": FunctionFragment;
-    "withdrawLink()": FunctionFragment;
-  };
+    "fulfill(bytes32,uint256)": FunctionFragment
+    "requestVolumeData()": FunctionFragment
+    "volume()": FunctionFragment
+    "withdrawLink()": FunctionFragment
+  }
 
   getFunction(
-    nameOrSignatureOrTopic:
-      | "fulfill"
-      | "requestVolumeData"
-      | "volume"
-      | "withdrawLink"
-  ): FunctionFragment;
+    nameOrSignatureOrTopic: "fulfill" | "requestVolumeData" | "volume" | "withdrawLink"
+  ): FunctionFragment
 
   encodeFunctionData(
     functionFragment: "fulfill",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "requestVolumeData",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "volume", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "withdrawLink",
-    values?: undefined
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: "requestVolumeData", values?: undefined): string
+  encodeFunctionData(functionFragment: "volume", values?: undefined): string
+  encodeFunctionData(functionFragment: "withdrawLink", values?: undefined): string
 
-  decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "requestVolumeData",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "volume", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawLink",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "requestVolumeData", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "volume", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "withdrawLink", data: BytesLike): Result
 
   events: {
-    "ChainlinkCancelled(bytes32)": EventFragment;
-    "ChainlinkFulfilled(bytes32)": EventFragment;
-    "ChainlinkRequested(bytes32)": EventFragment;
-    "DataFullfilled(uint256)": EventFragment;
-  };
+    "ChainlinkCancelled(bytes32)": EventFragment
+    "ChainlinkFulfilled(bytes32)": EventFragment
+    "ChainlinkRequested(bytes32)": EventFragment
+    "DataFullfilled(uint256)": EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "ChainlinkCancelled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ChainlinkFulfilled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ChainlinkRequested"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "DataFullfilled"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ChainlinkCancelled"): EventFragment
+  getEvent(nameOrSignatureOrTopic: "ChainlinkFulfilled"): EventFragment
+  getEvent(nameOrSignatureOrTopic: "ChainlinkRequested"): EventFragment
+  getEvent(nameOrSignatureOrTopic: "DataFullfilled"): EventFragment
 }
 
 export interface ChainlinkCancelledEventObject {
-  id: string;
+  id: string
 }
-export type ChainlinkCancelledEvent = TypedEvent<
-  [string],
-  ChainlinkCancelledEventObject
->;
+export type ChainlinkCancelledEvent = TypedEvent<[string], ChainlinkCancelledEventObject>
 
-export type ChainlinkCancelledEventFilter =
-  TypedEventFilter<ChainlinkCancelledEvent>;
+export type ChainlinkCancelledEventFilter = TypedEventFilter<ChainlinkCancelledEvent>
 
 export interface ChainlinkFulfilledEventObject {
-  id: string;
+  id: string
 }
-export type ChainlinkFulfilledEvent = TypedEvent<
-  [string],
-  ChainlinkFulfilledEventObject
->;
+export type ChainlinkFulfilledEvent = TypedEvent<[string], ChainlinkFulfilledEventObject>
 
-export type ChainlinkFulfilledEventFilter =
-  TypedEventFilter<ChainlinkFulfilledEvent>;
+export type ChainlinkFulfilledEventFilter = TypedEventFilter<ChainlinkFulfilledEvent>
 
 export interface ChainlinkRequestedEventObject {
-  id: string;
+  id: string
 }
-export type ChainlinkRequestedEvent = TypedEvent<
-  [string],
-  ChainlinkRequestedEventObject
->;
+export type ChainlinkRequestedEvent = TypedEvent<[string], ChainlinkRequestedEventObject>
 
-export type ChainlinkRequestedEventFilter =
-  TypedEventFilter<ChainlinkRequestedEvent>;
+export type ChainlinkRequestedEventFilter = TypedEventFilter<ChainlinkRequestedEvent>
 
 export interface DataFullfilledEventObject {
-  volume: BigNumber;
+  volume: BigNumber
 }
-export type DataFullfilledEvent = TypedEvent<
-  [BigNumber],
-  DataFullfilledEventObject
->;
+export type DataFullfilledEvent = TypedEvent<[BigNumber], DataFullfilledEventObject>
 
-export type DataFullfilledEventFilter = TypedEventFilter<DataFullfilledEvent>;
+export type DataFullfilledEventFilter = TypedEventFilter<DataFullfilledEvent>
 
 export interface APIConsumer extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
-  interface: APIConsumerInterface;
+  interface: APIConsumerInterface
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>;
+  ): Promise<Array<TEvent>>
 
   listeners<TEvent extends TypedEvent>(
     eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
-  listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
-  removeAllListeners(eventName?: string): this;
-  off: OnEvent<this>;
-  on: OnEvent<this>;
-  once: OnEvent<this>;
-  removeListener: OnEvent<this>;
+  ): Array<TypedListener<TEvent>>
+  listeners(eventName?: string): Array<Listener>
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this
+  removeAllListeners(eventName?: string): this
+  off: OnEvent<this>
+  on: OnEvent<this>
+  once: OnEvent<this>
+  removeListener: OnEvent<this>
 
   functions: {
     fulfill(
       _requestId: PromiseOrValue<BytesLike>,
       _volume: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     requestVolumeData(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    volume(overrides?: CallOverrides): Promise<[BigNumber]>;
+    volume(overrides?: CallOverrides): Promise<[BigNumber]>
 
     withdrawLink(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-  };
+    ): Promise<ContractTransaction>
+  }
 
   fulfill(
     _requestId: PromiseOrValue<BytesLike>,
     _volume: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   requestVolumeData(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  volume(overrides?: CallOverrides): Promise<BigNumber>;
+  volume(overrides?: CallOverrides): Promise<BigNumber>
 
   withdrawLink(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   callStatic: {
     fulfill(
       _requestId: PromiseOrValue<BytesLike>,
       _volume: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    requestVolumeData(overrides?: CallOverrides): Promise<string>;
+    requestVolumeData(overrides?: CallOverrides): Promise<string>
 
-    volume(overrides?: CallOverrides): Promise<BigNumber>;
+    volume(overrides?: CallOverrides): Promise<BigNumber>
 
-    withdrawLink(overrides?: CallOverrides): Promise<void>;
-  };
+    withdrawLink(overrides?: CallOverrides): Promise<void>
+  }
 
   filters: {
     "ChainlinkCancelled(bytes32)"(
       id?: PromiseOrValue<BytesLike> | null
-    ): ChainlinkCancelledEventFilter;
-    ChainlinkCancelled(
-      id?: PromiseOrValue<BytesLike> | null
-    ): ChainlinkCancelledEventFilter;
+    ): ChainlinkCancelledEventFilter
+    ChainlinkCancelled(id?: PromiseOrValue<BytesLike> | null): ChainlinkCancelledEventFilter
 
     "ChainlinkFulfilled(bytes32)"(
       id?: PromiseOrValue<BytesLike> | null
-    ): ChainlinkFulfilledEventFilter;
-    ChainlinkFulfilled(
-      id?: PromiseOrValue<BytesLike> | null
-    ): ChainlinkFulfilledEventFilter;
+    ): ChainlinkFulfilledEventFilter
+    ChainlinkFulfilled(id?: PromiseOrValue<BytesLike> | null): ChainlinkFulfilledEventFilter
 
     "ChainlinkRequested(bytes32)"(
       id?: PromiseOrValue<BytesLike> | null
-    ): ChainlinkRequestedEventFilter;
-    ChainlinkRequested(
-      id?: PromiseOrValue<BytesLike> | null
-    ): ChainlinkRequestedEventFilter;
+    ): ChainlinkRequestedEventFilter
+    ChainlinkRequested(id?: PromiseOrValue<BytesLike> | null): ChainlinkRequestedEventFilter
 
-    "DataFullfilled(uint256)"(volume?: null): DataFullfilledEventFilter;
-    DataFullfilled(volume?: null): DataFullfilledEventFilter;
-  };
+    "DataFullfilled(uint256)"(volume?: null): DataFullfilledEventFilter
+    DataFullfilled(volume?: null): DataFullfilledEventFilter
+  }
 
   estimateGas: {
     fulfill(
       _requestId: PromiseOrValue<BytesLike>,
       _volume: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    requestVolumeData(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    requestVolumeData(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
 
-    volume(overrides?: CallOverrides): Promise<BigNumber>;
+    volume(overrides?: CallOverrides): Promise<BigNumber>
 
-    withdrawLink(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-  };
+    withdrawLink(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>
+  }
 
   populateTransaction: {
     fulfill(
       _requestId: PromiseOrValue<BytesLike>,
       _volume: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     requestVolumeData(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    volume(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    volume(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     withdrawLink(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }

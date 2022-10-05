@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from "ethers"
+import type { Provider } from "@ethersproject/providers"
 import type {
   ERC677Token,
   ERC677TokenInterface,
-} from "../../../../../@chainlink/token/contracts/v0.4/ERC677Token";
+} from "../../../../../@chainlink/token/contracts/v0.4/ERC677Token"
 
 const _abi = [
   {
@@ -237,17 +237,14 @@ const _abi = [
     name: "Transfer",
     type: "event",
   },
-];
+]
 
 export class ERC677Token__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC677TokenInterface {
-    return new utils.Interface(_abi) as ERC677TokenInterface;
+    return new utils.Interface(_abi) as ERC677TokenInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ERC677Token {
-    return new Contract(address, _abi, signerOrProvider) as ERC677Token;
+  static connect(address: string, signerOrProvider: Signer | Provider): ERC677Token {
+    return new Contract(address, _abi, signerOrProvider) as ERC677Token
   }
 }

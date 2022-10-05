@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from "ethers"
+import type { Provider } from "@ethersproject/providers"
 import type {
   ERC677Receiver,
   ERC677ReceiverInterface,
-} from "../../../../../../@chainlink/token/contracts/v0.4/token/ERC677Receiver";
+} from "../../../../../../@chainlink/token/contracts/v0.4/token/ERC677Receiver"
 
 const _abi = [
   {
@@ -32,17 +32,14 @@ const _abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-];
+]
 
 export class ERC677Receiver__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ERC677ReceiverInterface {
-    return new utils.Interface(_abi) as ERC677ReceiverInterface;
+    return new utils.Interface(_abi) as ERC677ReceiverInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ERC677Receiver {
-    return new Contract(address, _abi, signerOrProvider) as ERC677Receiver;
+  static connect(address: string, signerOrProvider: Signer | Provider): ERC677Receiver {
+    return new Contract(address, _abi, signerOrProvider) as ERC677Receiver
   }
 }

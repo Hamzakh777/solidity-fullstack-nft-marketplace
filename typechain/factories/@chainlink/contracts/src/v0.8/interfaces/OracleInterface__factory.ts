@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from "ethers"
+import type { Provider } from "@ethersproject/providers"
 import type {
   OracleInterface,
   OracleInterfaceInterface,
-} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/OracleInterface";
+} from "../../../../../../@chainlink/contracts/src/v0.8/interfaces/OracleInterface"
 
 const _abi = [
   {
@@ -104,17 +104,14 @@ const _abi = [
     stateMutability: "view",
     type: "function",
   },
-];
+]
 
 export class OracleInterface__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): OracleInterfaceInterface {
-    return new utils.Interface(_abi) as OracleInterfaceInterface;
+    return new utils.Interface(_abi) as OracleInterfaceInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): OracleInterface {
-    return new Contract(address, _abi, signerOrProvider) as OracleInterface;
+  static connect(address: string, signerOrProvider: Signer | Provider): OracleInterface {
+    return new Contract(address, _abi, signerOrProvider) as OracleInterface
   }
 }

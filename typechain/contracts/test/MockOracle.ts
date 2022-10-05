@@ -12,30 +12,26 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
+} from "ethers"
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi"
+import type { Listener, Provider } from "@ethersproject/providers"
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../../common"
 
 export interface MockOracleInterface extends utils.Interface {
   functions: {
-    "EXPIRY_TIME()": FunctionFragment;
-    "cancelOracleRequest(bytes32,uint256,bytes4,uint256)": FunctionFragment;
-    "fulfillOracleRequest(bytes32,bytes32)": FunctionFragment;
-    "getChainlinkToken()": FunctionFragment;
-    "onTokenTransfer(address,uint256,bytes)": FunctionFragment;
-    "oracleRequest(address,uint256,bytes32,address,bytes4,uint256,uint256,bytes)": FunctionFragment;
-  };
+    "EXPIRY_TIME()": FunctionFragment
+    "cancelOracleRequest(bytes32,uint256,bytes4,uint256)": FunctionFragment
+    "fulfillOracleRequest(bytes32,bytes32)": FunctionFragment
+    "getChainlinkToken()": FunctionFragment
+    "onTokenTransfer(address,uint256,bytes)": FunctionFragment
+    "oracleRequest(address,uint256,bytes32,address,bytes4,uint256,uint256,bytes)": FunctionFragment
+  }
 
   getFunction(
     nameOrSignatureOrTopic:
@@ -45,12 +41,9 @@ export interface MockOracleInterface extends utils.Interface {
       | "getChainlinkToken"
       | "onTokenTransfer"
       | "oracleRequest"
-  ): FunctionFragment;
+  ): FunctionFragment
 
-  encodeFunctionData(
-    functionFragment: "EXPIRY_TIME",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "EXPIRY_TIME", values?: undefined): string
   encodeFunctionData(
     functionFragment: "cancelOracleRequest",
     values: [
@@ -59,23 +52,16 @@ export interface MockOracleInterface extends utils.Interface {
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BigNumberish>
     ]
-  ): string;
+  ): string
   encodeFunctionData(
     functionFragment: "fulfillOracleRequest",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getChainlinkToken",
-    values?: undefined
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: "getChainlinkToken", values?: undefined): string
   encodeFunctionData(
     functionFragment: "onTokenTransfer",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
-  ): string;
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
+  ): string
   encodeFunctionData(
     functionFragment: "oracleRequest",
     values: [
@@ -88,109 +74,75 @@ export interface MockOracleInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>
     ]
-  ): string;
+  ): string
 
-  decodeFunctionResult(
-    functionFragment: "EXPIRY_TIME",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "cancelOracleRequest",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "fulfillOracleRequest",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getChainlinkToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onTokenTransfer",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "oracleRequest",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "EXPIRY_TIME", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "cancelOracleRequest", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "fulfillOracleRequest", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "getChainlinkToken", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "onTokenTransfer", data: BytesLike): Result
+  decodeFunctionResult(functionFragment: "oracleRequest", data: BytesLike): Result
 
   events: {
-    "CancelOracleRequest(bytes32)": EventFragment;
-    "OracleRequest(bytes32,address,bytes32,uint256,address,bytes4,uint256,uint256,bytes)": EventFragment;
-  };
+    "CancelOracleRequest(bytes32)": EventFragment
+    "OracleRequest(bytes32,address,bytes32,uint256,address,bytes4,uint256,uint256,bytes)": EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "CancelOracleRequest"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OracleRequest"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "CancelOracleRequest"): EventFragment
+  getEvent(nameOrSignatureOrTopic: "OracleRequest"): EventFragment
 }
 
 export interface CancelOracleRequestEventObject {
-  requestId: string;
+  requestId: string
 }
-export type CancelOracleRequestEvent = TypedEvent<
-  [string],
-  CancelOracleRequestEventObject
->;
+export type CancelOracleRequestEvent = TypedEvent<[string], CancelOracleRequestEventObject>
 
-export type CancelOracleRequestEventFilter =
-  TypedEventFilter<CancelOracleRequestEvent>;
+export type CancelOracleRequestEventFilter = TypedEventFilter<CancelOracleRequestEvent>
 
 export interface OracleRequestEventObject {
-  specId: string;
-  requester: string;
-  requestId: string;
-  payment: BigNumber;
-  callbackAddr: string;
-  callbackFunctionId: string;
-  cancelExpiration: BigNumber;
-  dataVersion: BigNumber;
-  data: string;
+  specId: string
+  requester: string
+  requestId: string
+  payment: BigNumber
+  callbackAddr: string
+  callbackFunctionId: string
+  cancelExpiration: BigNumber
+  dataVersion: BigNumber
+  data: string
 }
 export type OracleRequestEvent = TypedEvent<
-  [
-    string,
-    string,
-    string,
-    BigNumber,
-    string,
-    string,
-    BigNumber,
-    BigNumber,
-    string
-  ],
+  [string, string, string, BigNumber, string, string, BigNumber, BigNumber, string],
   OracleRequestEventObject
->;
+>
 
-export type OracleRequestEventFilter = TypedEventFilter<OracleRequestEvent>;
+export type OracleRequestEventFilter = TypedEventFilter<OracleRequestEvent>
 
 export interface MockOracle extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
-  interface: MockOracleInterface;
+  interface: MockOracleInterface
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>;
+  ): Promise<Array<TEvent>>
 
   listeners<TEvent extends TypedEvent>(
     eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
-  listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
-  removeAllListeners(eventName?: string): this;
-  off: OnEvent<this>;
-  on: OnEvent<this>;
-  once: OnEvent<this>;
-  removeListener: OnEvent<this>;
+  ): Array<TypedListener<TEvent>>
+  listeners(eventName?: string): Array<Listener>
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this
+  removeAllListeners(eventName?: string): this
+  off: OnEvent<this>
+  on: OnEvent<this>
+  once: OnEvent<this>
+  removeListener: OnEvent<this>
 
   functions: {
-    EXPIRY_TIME(overrides?: CallOverrides): Promise<[BigNumber]>;
+    EXPIRY_TIME(overrides?: CallOverrides): Promise<[BigNumber]>
 
     cancelOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
@@ -198,22 +150,22 @@ export interface MockOracle extends BaseContract {
       arg2: PromiseOrValue<BytesLike>,
       _expiration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     fulfillOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    getChainlinkToken(overrides?: CallOverrides): Promise<[string]>;
+    getChainlinkToken(overrides?: CallOverrides): Promise<[string]>
 
     onTokenTransfer(
       _sender: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     oracleRequest(
       _sender: PromiseOrValue<string>,
@@ -225,10 +177,10 @@ export interface MockOracle extends BaseContract {
       _dataVersion: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-  };
+    ): Promise<ContractTransaction>
+  }
 
-  EXPIRY_TIME(overrides?: CallOverrides): Promise<BigNumber>;
+  EXPIRY_TIME(overrides?: CallOverrides): Promise<BigNumber>
 
   cancelOracleRequest(
     _requestId: PromiseOrValue<BytesLike>,
@@ -236,22 +188,22 @@ export interface MockOracle extends BaseContract {
     arg2: PromiseOrValue<BytesLike>,
     _expiration: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   fulfillOracleRequest(
     _requestId: PromiseOrValue<BytesLike>,
     _data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  getChainlinkToken(overrides?: CallOverrides): Promise<string>;
+  getChainlinkToken(overrides?: CallOverrides): Promise<string>
 
   onTokenTransfer(
     _sender: PromiseOrValue<string>,
     _amount: PromiseOrValue<BigNumberish>,
     _data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   oracleRequest(
     _sender: PromiseOrValue<string>,
@@ -263,10 +215,10 @@ export interface MockOracle extends BaseContract {
     _dataVersion: PromiseOrValue<BigNumberish>,
     _data: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   callStatic: {
-    EXPIRY_TIME(overrides?: CallOverrides): Promise<BigNumber>;
+    EXPIRY_TIME(overrides?: CallOverrides): Promise<BigNumber>
 
     cancelOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
@@ -274,22 +226,22 @@ export interface MockOracle extends BaseContract {
       arg2: PromiseOrValue<BytesLike>,
       _expiration: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     fulfillOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<boolean>
 
-    getChainlinkToken(overrides?: CallOverrides): Promise<string>;
+    getChainlinkToken(overrides?: CallOverrides): Promise<string>
 
     onTokenTransfer(
       _sender: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
     oracleRequest(
       _sender: PromiseOrValue<string>,
@@ -301,16 +253,16 @@ export interface MockOracle extends BaseContract {
       _dataVersion: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<void>;
-  };
+    ): Promise<void>
+  }
 
   filters: {
     "CancelOracleRequest(bytes32)"(
       requestId?: PromiseOrValue<BytesLike> | null
-    ): CancelOracleRequestEventFilter;
+    ): CancelOracleRequestEventFilter
     CancelOracleRequest(
       requestId?: PromiseOrValue<BytesLike> | null
-    ): CancelOracleRequestEventFilter;
+    ): CancelOracleRequestEventFilter
 
     "OracleRequest(bytes32,address,bytes32,uint256,address,bytes4,uint256,uint256,bytes)"(
       specId?: PromiseOrValue<BytesLike> | null,
@@ -322,7 +274,7 @@ export interface MockOracle extends BaseContract {
       cancelExpiration?: null,
       dataVersion?: null,
       data?: null
-    ): OracleRequestEventFilter;
+    ): OracleRequestEventFilter
     OracleRequest(
       specId?: PromiseOrValue<BytesLike> | null,
       requester?: null,
@@ -333,11 +285,11 @@ export interface MockOracle extends BaseContract {
       cancelExpiration?: null,
       dataVersion?: null,
       data?: null
-    ): OracleRequestEventFilter;
-  };
+    ): OracleRequestEventFilter
+  }
 
   estimateGas: {
-    EXPIRY_TIME(overrides?: CallOverrides): Promise<BigNumber>;
+    EXPIRY_TIME(overrides?: CallOverrides): Promise<BigNumber>
 
     cancelOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
@@ -345,22 +297,22 @@ export interface MockOracle extends BaseContract {
       arg2: PromiseOrValue<BytesLike>,
       _expiration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     fulfillOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getChainlinkToken(overrides?: CallOverrides): Promise<BigNumber>;
+    getChainlinkToken(overrides?: CallOverrides): Promise<BigNumber>
 
     onTokenTransfer(
       _sender: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     oracleRequest(
       _sender: PromiseOrValue<string>,
@@ -372,11 +324,11 @@ export interface MockOracle extends BaseContract {
       _dataVersion: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-  };
+    ): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    EXPIRY_TIME(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    EXPIRY_TIME(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     cancelOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
@@ -384,22 +336,22 @@ export interface MockOracle extends BaseContract {
       arg2: PromiseOrValue<BytesLike>,
       _expiration: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     fulfillOracleRequest(
       _requestId: PromiseOrValue<BytesLike>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getChainlinkToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getChainlinkToken(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     onTokenTransfer(
       _sender: PromiseOrValue<string>,
       _amount: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     oracleRequest(
       _sender: PromiseOrValue<string>,
@@ -411,6 +363,6 @@ export interface MockOracle extends BaseContract {
       _dataVersion: PromiseOrValue<BigNumberish>,
       _data: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }
