@@ -28,10 +28,24 @@ import type {
   PromiseOrValue,
 } from "../common";
 
+export declare namespace NftMarketplace {
+  export type ListingStruct = {
+    price: PromiseOrValue<BigNumberish>;
+    seller: PromiseOrValue<string>;
+  };
+
+  export type ListingStructOutput = [BigNumber, string] & {
+    price: BigNumber;
+    seller: string;
+  };
+}
+
 export interface NftMarketplaceInterface extends utils.Interface {
   functions: {
     "buyItem(address,uint256)": FunctionFragment;
     "cancelListing(address,uint256)": FunctionFragment;
+    "getListing(address,uint256)": FunctionFragment;
+    "getProceeds(address)": FunctionFragment;
     "listItem(address,uint256,uint256)": FunctionFragment;
     "updateListing(address,uint256,uint256)": FunctionFragment;
     "withdrawProceeds()": FunctionFragment;
@@ -41,6 +55,8 @@ export interface NftMarketplaceInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "buyItem"
       | "cancelListing"
+      | "getListing"
+      | "getProceeds"
       | "listItem"
       | "updateListing"
       | "withdrawProceeds"
@@ -53,6 +69,14 @@ export interface NftMarketplaceInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "cancelListing",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getListing",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getProceeds",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "listItem",
@@ -78,6 +102,11 @@ export interface NftMarketplaceInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "buyItem", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "cancelListing",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getListing", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getProceeds",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "listItem", data: BytesLike): Result;
@@ -193,6 +222,17 @@ export interface NftMarketplace extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    getListing(
+      nftAddress: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[NftMarketplace.ListingStructOutput]>;
+
+    getProceeds(
+      seller: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     listItem(
       nftAddress: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -208,7 +248,7 @@ export interface NftMarketplace extends BaseContract {
     ): Promise<ContractTransaction>;
 
     withdrawProceeds(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -223,6 +263,17 @@ export interface NftMarketplace extends BaseContract {
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  getListing(
+    nftAddress: PromiseOrValue<string>,
+    tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<NftMarketplace.ListingStructOutput>;
+
+  getProceeds(
+    seller: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   listItem(
     nftAddress: PromiseOrValue<string>,
@@ -239,7 +290,7 @@ export interface NftMarketplace extends BaseContract {
   ): Promise<ContractTransaction>;
 
   withdrawProceeds(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -254,6 +305,17 @@ export interface NftMarketplace extends BaseContract {
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    getListing(
+      nftAddress: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<NftMarketplace.ListingStructOutput>;
+
+    getProceeds(
+      seller: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     listItem(
       nftAddress: PromiseOrValue<string>,
@@ -337,6 +399,17 @@ export interface NftMarketplace extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    getListing(
+      nftAddress: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getProceeds(
+      seller: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     listItem(
       nftAddress: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -352,7 +425,7 @@ export interface NftMarketplace extends BaseContract {
     ): Promise<BigNumber>;
 
     withdrawProceeds(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -369,6 +442,17 @@ export interface NftMarketplace extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    getListing(
+      nftAddress: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getProceeds(
+      seller: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     listItem(
       nftAddress: PromiseOrValue<string>,
       tokenId: PromiseOrValue<BigNumberish>,
@@ -384,7 +468,7 @@ export interface NftMarketplace extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     withdrawProceeds(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
