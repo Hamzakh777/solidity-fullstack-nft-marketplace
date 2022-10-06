@@ -2,6 +2,7 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 error NftMarketplace__PriceMustBeAboveZero();
 error NftMarketplace__NotApprovedForMarketplace();
@@ -11,7 +12,7 @@ error NftMarketplace__OwnerCannotBuyHisOwnNft();
 error NftMarketplace__NftNotListed(address nftAddress, uint256 tokenId);
 error NftMarketplace__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
 
-contract NftMarketplace {
+contract NftMarketplace is ReentrancyGuard {
   struct Listing {
     uint256 price;
     address seller;
@@ -24,10 +25,17 @@ contract NftMarketplace {
     uint256 price
   );
 
+  event ItemBough(
+    address indexed buyer,
+    address indexed nftAddress,
+    uint256 indexed tokenid,
+    uint256 price
+  );
+
   // NFT contract address => nft token id => listing
   mapping(address => mapping(uint256 => Listing)) s_listings;
   // Seller Address => Amount earned
-  mapping(address => uint256) s_proceed;
+  mapping(address => uint256) s_proceeds;
 
   ///////////////
   // Modifiers //
@@ -115,6 +123,7 @@ contract NftMarketplace {
   function buyItem(address nftAddress, uint256 tokenId)
     external
     payable
+    nonReentrant()
     isListed(nftAddress, tokenId)
     isNotOwner(nftAddress, tokenId, msg.sender)
   {
@@ -122,11 +131,12 @@ contract NftMarketplace {
     if (msg.value <= listingItem.price) {
       revert NftMarketplace__PriceNotMet(nftAddress, tokenId, listingItem.price);
     }
-    // pull over push - solidity best practice = instead of sending 
+    // pull over push - solidity best practice = instead of sending
     // the money directly, we want them to withdraw the money
-    s_proceed[listingItem.seller] += msg.value;
+    s_proceeds[listingItem.seller] += msg.value;
     delete (s_listings[nftAddress][tokenId]);
     IERC721 nft = IERC721(nftAddress);
     nft.safeTransferFrom(listingItem.seller, msg.sender, tokenId);
+    emit ItemBough(msg.sender, nftAddress, tokenId, listingItem.price);
   }
 }
