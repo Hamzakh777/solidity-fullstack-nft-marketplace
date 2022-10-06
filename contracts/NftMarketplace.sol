@@ -32,10 +32,13 @@ contract NftMarketplace is ReentrancyGuard {
     uint256 price
   );
 
-  event ListingDeleted(
-    address indexed seller,
+  event ListingDeleted(address indexed seller, address indexed nftAddress, uint256 indexed tokenid);
+
+  event ListingUpdated(
+    address indexed buyer,
     address indexed nftAddress,
-    uint256 indexed tokenid
+    uint256 indexed tokenid,
+    uint256 price
   );
 
   // NFT contract address => nft token id => listing
@@ -160,5 +163,20 @@ contract NftMarketplace is ReentrancyGuard {
   {
     delete (s_listings[nftAddress][tokenId]);
     emit ListingDeleted(msg.sender, nftAddress, tokenId);
+  }
+
+  /**
+   * @notice Lets the users updates listed NFTs
+   * @param nftAddress: Address of the NFT
+   * @param tokenId: The Token ID of the NFT
+   * @param price: sale price of the listed NFT
+   */
+  function updateListing(
+    address nftAddress,
+    uint256 tokenId,
+    uint256 price
+  ) external isOwner(nftAddress, tokenId, msg.sender) isListed(nftAddress, tokenId) {
+    s_listings[nftAddress][tokenId].price = price;
+    emit ListingUpdated(msg.sender, nftAddress, tokenId, price);
   }
 }
