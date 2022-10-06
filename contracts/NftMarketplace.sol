@@ -11,6 +11,8 @@ error NftMarketplace__NotOwner();
 error NftMarketplace__OwnerCannotBuyHisOwnNft();
 error NftMarketplace__NftNotListed(address nftAddress, uint256 tokenId);
 error NftMarketplace__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
+error NftMarketplace__NoProceeds();
+error NftMarketplace__TransferFailed();
 
 contract NftMarketplace is ReentrancyGuard {
   struct Listing {
@@ -178,5 +180,20 @@ contract NftMarketplace is ReentrancyGuard {
   ) external isOwner(nftAddress, tokenId, msg.sender) isListed(nftAddress, tokenId) {
     s_listings[nftAddress][tokenId].price = price;
     emit ListingUpdated(msg.sender, nftAddress, tokenId, price);
+  }
+
+  /**
+   * @notice Lets the user withdraw his proceeds
+   */
+  function withdrawProceeds() external {
+    uint256 proceeds = s_proceeds[msg.sender];
+    if(proceeds <= 0) {
+      revert NftMarketplace__NoProceeds();
+    }
+    s_proceeds[msg.sender] = 0;
+    (bool success, ) = payable(msg.sender).call{value: proceeds}("");
+    if(!success) {
+      revert NftMarketplace__TransferFailed();
+    }
   }
 }
