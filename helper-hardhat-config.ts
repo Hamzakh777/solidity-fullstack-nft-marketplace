@@ -1,4 +1,4 @@
-import { BigNumber } from "ethers"
+import { BigNumber, utils } from "ethers"
 
 type NetworkConfigItem = {
   name: string
@@ -67,3 +67,4 @@ export const networkConfig: NetworkConfigMap = {
 
 export const developmentChains: string[] = ["hardhat", "localhost"]
 export const VERIFICATION_BLOCK_CONFIRMATIONS = 6
+export const NFT_PRICE = utils.parseEther("0.01")
