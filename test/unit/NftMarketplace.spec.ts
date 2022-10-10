@@ -138,7 +138,7 @@ import { BasicNft, NftMarketplace } from "../../typechain"
         })
       })
 
-      describe.only("updateListing", () => {
+      describe("updateListing", () => {
         const NEW_NFT_PRICE = NFT_Price.add("1")
         it("Should revert if the item is not listed", async () => {
           const tx = nftMarketplace.updateListing(basicNft.address, 0, NEW_NFT_PRICE)
