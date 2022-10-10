@@ -87,7 +87,7 @@ contract NftMarketplace is ReentrancyGuard {
   ) {
     IERC721 nft = IERC721(nftAddress);
     address owner = nft.ownerOf(tokenId);
-    if (owner != spender) {
+    if (owner == spender) {
       revert NftMarketplace__OwnerCannotBuyHisOwnNft();
     }
     _;
@@ -141,7 +141,7 @@ contract NftMarketplace is ReentrancyGuard {
     isNotOwner(nftAddress, tokenId, msg.sender)
   {
     Listing memory listingItem = s_listings[nftAddress][tokenId];
-    if (msg.value <= listingItem.price) {
+    if (msg.value < listingItem.price) {
       revert NftMarketplace__PriceNotMet(nftAddress, tokenId, listingItem.price);
     }
     // pull over push - solidity best practice = instead of sending
