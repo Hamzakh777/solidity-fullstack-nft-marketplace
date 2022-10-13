@@ -1,5 +1,5 @@
 {
-  "name": "moralis",
+  "name": "moralis-front-end",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "moralis-v1": "^1.11.0",
+    "ethers": "^5.7.1",
+    "moralis": "^2.6.4",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-moralis": "^1.4.2",
-    "web3uikit": "^1.0.4"
+    "wagmi": "^0.7.0"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
