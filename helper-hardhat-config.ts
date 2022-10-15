@@ -68,3 +68,10 @@ export const networkConfig: NetworkConfigMap = {
 export const developmentChains: string[] = ["hardhat", "localhost"]
 export const VERIFICATION_BLOCK_CONFIRMATIONS = 6
 export const NFT_PRICE = utils.parseEther("0.01")
+
+// Deploy Info 
+export const FRONT_END_CONTRACT_FILE = "./constants/networkMapping.json"
+export const FRONT_END_CONTRACT_FILE_2 =
+    "./constants/networkMapping.json"
+export const FRONT_END_ABI_LOCATION = "./constants/"
+export const FRONT_END_ABI_LOCATION_2 = "./constants/"

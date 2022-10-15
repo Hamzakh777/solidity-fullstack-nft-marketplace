@@ -61,12 +61,6 @@ const config: HardhatUserConfig = {
       saveDeployments: true,
       chainId: 1,
     },
-    polygon: {
-      url: POLYGON_MAINNET_RPC_URL,
-      accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-      saveDeployments: true,
-      chainId: 137,
-    },
   },
   etherscan: {
     // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
