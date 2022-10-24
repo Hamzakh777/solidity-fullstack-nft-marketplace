@@ -1,6 +1,6 @@
 import { useMoralis } from "react-moralis"
 import { useEffect, useState } from "react"
-import networkMapping from "../constants/networkMapping.json"
+import networkMapping from "../../../constants/networkMapping.json"
 import { BannerStrip } from "web3uikit"
 
 const isValidNetwork = (network: string) => {

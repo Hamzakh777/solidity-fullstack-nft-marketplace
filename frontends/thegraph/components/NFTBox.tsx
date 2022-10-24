@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import { Card, Tooltip, Illustration, useNotification } from "web3uikit"
-import nftAbi from "../constants/BasicNft.json"
-import nftMarketplaceAbi from "../constants/NftMarketplace.json"
+import nftAbi from "../../../constants/BasicNft.json"
+import nftMarketplaceAbi from "../../../constants/NftMarketplace.json"
 
 import { useMoralisWeb3Api, useMoralis, useWeb3Contract } from "react-moralis"
 import Image from "next/image"

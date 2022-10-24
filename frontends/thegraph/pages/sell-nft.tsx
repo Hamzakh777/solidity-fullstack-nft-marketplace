@@ -1,19 +1,12 @@
 import type { NextPage } from "next"
 import { Form, Button, useNotification } from "web3uikit"
 import { useWeb3Contract, useMoralis } from "react-moralis"
-import nftMarketplaceAbi from "../constants/NftMarketplace.json"
-import nftAbi from "../constants/BasicNft.json"
-import networkMapping from "../constants/networkMapping.json"
+import nftMarketplaceAbi from "../../../constants/NftMarketplace.json"
+import nftAbi from "../../../constants/BasicNft.json"
+import networkMapping from "../../../constants/networkMapping.json"
 import { useEffect, useState } from "react"
 import { BigNumber, ethers } from "ethers"
-
-type NetworkConfigItem = {
-    NftMarketplace: string[]
-}
-
-type NetworkConfigMap = {
-    [chainId: string]: NetworkConfigItem
-}
+import { NetworkConfigMap } from "../types"
 
 const SellNft: NextPage = () => {
     const { chainId, account, isWeb3Enabled } = useMoralis()
