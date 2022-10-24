@@ -59,7 +59,7 @@ import { BasicNft, NftMarketplace } from "../../typechain"
             "NftMarketplace__NotApprovedForMarketplace"
           )
         })
-        
+
         it("Should revert if the NFT price is 0", async () => {
           const tx = nftMarketplace.listItem(basicNft.address, 0, BigNumber.from("0"))
           await expect(tx).to.be.revertedWithCustomError(
@@ -122,7 +122,10 @@ import { BasicNft, NftMarketplace } from "../../typechain"
       describe("cancelListing", () => {
         it("Should revert if the item is not listed", async () => {
           const tx = nftMarketplace.cancelListing(basicNft.address, 0)
-          await expect(tx).to.be.revertedWithCustomError(nftMarketplace, "NftMarketplace__NftNotListed")
+          await expect(tx).to.be.revertedWithCustomError(
+            nftMarketplace,
+            "NftMarketplace__NftNotListed"
+          )
         })
 
         it("Should revert if its called by non owner", async () => {
@@ -142,7 +145,10 @@ import { BasicNft, NftMarketplace } from "../../typechain"
         const NEW_NFT_PRICE = NFT_Price.add("1")
         it("Should revert if the item is not listed", async () => {
           const tx = nftMarketplace.updateListing(basicNft.address, 0, NEW_NFT_PRICE)
-          await expect(tx).to.be.revertedWithCustomError(nftMarketplace, "NftMarketplace__NftNotListed")
+          await expect(tx).to.be.revertedWithCustomError(
+            nftMarketplace,
+            "NftMarketplace__NftNotListed"
+          )
         })
 
         it("Should revert if its called by non owner", async () => {
@@ -154,12 +160,9 @@ import { BasicNft, NftMarketplace } from "../../typechain"
         it("Should allow the owner to update a listed NFT", async () => {
           await nftMarketplace.listItem(basicNft.address, 0, NFT_Price)
           const tx = nftMarketplace.updateListing(basicNft.address, 0, NEW_NFT_PRICE)
-          await expect(tx).to.emit(nftMarketplace, "ListingUpdated").withArgs(
-            deployer,
-            basicNft.address,
-            0,
-            NEW_NFT_PRICE
-          )
+          await expect(tx)
+            .to.emit(nftMarketplace, "ListingUpdated")
+            .withArgs(deployer, basicNft.address, 0, NEW_NFT_PRICE)
         })
       })
 

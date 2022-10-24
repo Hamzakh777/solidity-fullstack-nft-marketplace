@@ -1,0 +1,31 @@
+type ActiveItem @entity {
+  id: ID!
+  buyer: Bytes! # address 0x000000.... if no one has bought it yet
+  seller: Bytes!
+  nftAddress: Bytes! # address.
+  tokenId: BigInt!
+  price: BigInt
+}
+
+type ItemList @entity {
+  id: ID!
+  seller: Bytes!
+  nftAddress: Bytes!
+  tokenId: BigInt!
+  price: BigInt
+}
+
+type ListingDeleted @entity {
+  id: ID!
+  seller: Bytes!
+  nftAddress: Bytes!
+  tokenId: BigInt
+}
+
+type ItemBought @entity {
+  id: ID!
+  buyer: Bytes!
+  nftAddress: Bytes!
+  tokenId: BigInt!
+  price: BigInt
+}

@@ -96,10 +96,10 @@ async function main() {
         sync_historical: true,
     }
 
-    let itemCanceledOptions = {
+    let ListingDeletedOptions = {
         chainId: moralisChainId,
         address: contractAddress,
-        topic: "ItemCanceled(address,address,uint256)",
+        topic: "ListingDeleted(address,address,uint256)",
         abi: {
             anonymous: false,
             inputs: [
@@ -122,10 +122,10 @@ async function main() {
                     type: "uint256",
                 },
             ],
-            name: "ItemCanceled",
+            name: "ListingDeleted",
             type: "event",
         },
-        tableName: "ItemCanceled",
+        tableName: "ListingDeleted",
         sync_historical: true,
     }
 
@@ -135,7 +135,7 @@ async function main() {
     const boughtResponse = await Moralis.Cloud.run("watchContractEvent", itemBoughtOptions, {
         useMasterKey: true,
     })
-    const canceledResponse = await Moralis.Cloud.run("watchContractEvent", itemCanceledOptions, {
+    const canceledResponse = await Moralis.Cloud.run("watchContractEvent", ListingDeletedOptions, {
         useMasterKey: true,
     })
     if (listedResponse.success && canceledResponse.success && boughtResponse.success) {
